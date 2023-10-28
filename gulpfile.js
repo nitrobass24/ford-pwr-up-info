@@ -29,15 +29,15 @@ gulp.task("copy-fonts", async () => {
     return;
 });
 
-gulp.task('fetch-data', async function() {
-  try {
-    const response = await axios.get('https://script.google.com/macros/s/AKfycbwPAgPqFB1msVId7Lpnv1RRaGHVItiPKEpadXN33aQ_t6bmsbPv8hVz1jxS6Q7D0Ymi/exec');
-    fs.writeFileSync('powerup_data.json', JSON.stringify(response.data, null, 2));
-    console.log('Data fetched successfully!');
-  } catch (error) {
-    console.error('Error fetching data:', error);
-  }
-});
+//gulp.task('fetch-data', async function() {
+  //try {
+    //const response = await axios.get('https://script.google.com/macros/s/AKfycbwPAgPqFB1msVId7Lpnv1RRaGHVItiPKEpadXN33aQ_t6bmsbPv8hVz1jxS6Q7D0Ymi/exec');
+    //fs.writeFileSync('powerup_data.json', JSON.stringify(response.data, null, 2));
+    //console.log('Data fetched successfully!');
+  //} catch (error) {
+    //console.error('Error fetching data:', error);
+  //}
+//});
 
 gulp.task("copy-imgs", async () => {
     gulp.src("src/web/img/**/*.*").pipe(gulp.dest("public/img"));
@@ -78,7 +78,7 @@ gulp.task("process-template-html", () => {
         .pipe(gulp.dest("public/templates"));
 });
 
-gulp.task("process-content", gulp.series("fetch-data", "clean-dist", gulp.parallel("process-main-html", "process-template-html", "copy-fonts", "copy-imgs", "copy-json")));
+gulp.task("process-content", gulp.series("clean-dist", gulp.parallel("process-main-html", "process-template-html", "copy-fonts", "copy-imgs", "copy-json")));
 
 gulp.task("default", () => {
     logger.warn("Gulp is Watching for Files Changes...");
