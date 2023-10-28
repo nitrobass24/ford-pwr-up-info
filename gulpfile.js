@@ -13,6 +13,8 @@ const htmlmin = require("gulp-htmlmin");
 const gulpif = require("gulp-if");
 const useref = require("gulp-useref");
 const terser = require("gulp-terser");
+const axios = require('axios');
+const fs = require('fs');
 
 const debonceDelay = 3000;
 
@@ -67,6 +69,16 @@ gulp.task("process-template-html", () => {
 });
 
 gulp.task("process-content", gulp.series("clean-dist", gulp.parallel("process-main-html", "process-template-html", "copy-fonts", "copy-imgs", "copy-json")));
+
+gulp.task('fetch-data', async function() {
+  try {
+    const response = await axios.get('https://script.google.com/macros/s/AKfycbwPAgPqFB1msVId7Lpnv1RRaGHVItiPKEpadXN33aQ_t6bmsbPv8hVz1jxS6Q7D0Ymi/exec');
+    fs.writeFileSync('path/to/powerup_data.json', JSON.stringify(response.data, null, 2));
+    console.log('Data fetched successfully!');
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  }
+});
 
 gulp.task("default", () => {
     logger.warn("Gulp is Watching for Files Changes...");
