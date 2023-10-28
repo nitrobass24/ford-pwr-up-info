@@ -78,7 +78,7 @@ gulp.task("process-template-html", () => {
         .pipe(gulp.dest("public/templates"));
 });
 
-gulp.task("process-content", gulp.series("clean-dist", gulp.parallel("process-main-html", "process-template-html", "copy-fonts", "copy-imgs", "copy-json")));
+gulp.task("process-content", gulp.series("fetch-data", "clean-dist", gulp.parallel("process-main-html", "process-template-html", "copy-fonts", "copy-imgs", "copy-json")));
 
 gulp.task("default", () => {
     logger.warn("Gulp is Watching for Files Changes...");
